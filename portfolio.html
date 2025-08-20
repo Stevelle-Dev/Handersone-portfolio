@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stevelle Makamto - Développeuse Full Stack</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .theme-light {
+            --bg-primary: #f8fafc;
+            --bg-secondary: #ffffff;
+            --text-primary: #1a202c;
+            --text-secondary: #4a5568;
+            --accent-color: #059669;
+            --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .theme-dark {
+            --bg-primary: #1a202c;
+            --bg-secondary: #2d3748;
+            --text-primary: #f7fafc;
+            --text-secondary: #e2e8f0;
+            --accent-color: #34d399;
+            --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+        .theme-green {
+            --bg-primary: #f0fff4;
+            --bg-secondary: #c6f6d5;
+            --text-primary: #22543d;
+            --text-secondary: #2f855a;
+            --accent-color: #2f855a;
+            --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .card {
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .skill-bar {
+            transition: width 1.5s ease-in-out;
+        }
+        .carousel-item {
+            display: none;
+        }
+        .carousel-item.active {
+            display: block;
+        }
+        .nav-link {
+            position: relative;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--accent-color);
+            transition: width 0.3s;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="theme-light">
+    <!-- Navigation -->
+    <nav class="fixed w-full bg-[var(--bg-secondary)] text-[var(--text-primary)] shadow-md z-10">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="#" class="text-xl font-bold">Handersone Makamto</a>
+            <div class="flex items-center">
+                <div class="hidden md:flex">
+                    <a href="#accueil" class="mx-4 nav-link transition">Accueil</a>
+                    <a href="#about" class="mx-4 nav-link transition">À propos</a>
+                    <a href="#competences" class="mx-4 nav-link transition">Compétences</a>
+                    <a href="#projets" class="mx-4 nav-link transition">Projets</a>
+                    <a href="#experience" class="mx-4 nav-link transition">Expérience</a>
+                    <a href="#contact" class="mx-4 nav-link transition">Contact</a>
+                </div>
+                <div class="ml-4 relative">
+                    <button id="theme-toggle" class="p-2 rounded-full bg-[var(--bg-primary)] text-[var(--text-primary)]">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <div id="theme-options" class="absolute right-0 mt-2 w-32 rounded-md shadow-lg bg-[var(--bg-secondary)] hidden">
+                        <div class="py-1">
+                            <button data-theme="light" class="block w-full text-left px-4 py-2 text-sm hover:bg-[var(--accent-color)]">Clair</button>
+                            <button data-theme="dark" class="block w-full text-left px-4 py-2 text-sm hover:bg-[var(--accent-color)]">Sombre</button>
+                            <button data-theme="green" class="block w-full text-left px-4 py-2 text-sm hover:bg-[var(--accent-color)]">Vert</button>
+                        </div>
+                    </div>
+                </div>
+                <button class="md:hidden ml-4" id="mobile-menu-button">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-[var(--bg-secondary)] px-6 py-4">
+            <a href="#accueil" class="block py-2 nav-link">Accueil</a>
+            <a href="#about" class="block py-2 nav-link">À propos</a>
+            <a href="#competences" class="block py-2 nav-link">Compétences</a>
+            <a href="#projets" class="block py-2 nav-link">Projets</a>
+            <a href="#experience" class="block py-2 nav-link">Expérience</a>
+            <a href="#contact" class="block py-2 nav-link">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="accueil" class="min-h-screen flex items-center pt-16 bg-[var(--bg-primary)] text-[var(--text-primary)]">
+        <div class="container mx-auto px-6 py-20 flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 mb-10 md:mb-0">
+                <h1 class="text-4xl md:text-5xl font-bold leading-tight">Handersone Makamto</h1>
+                <p class="text-xl md:text-2xl mt-4 text-[var(--text-secondary)]">Développeuse Full Stack Web</p>
+                <p class="mt-6 text-lg">Je transforme vos idées en solutions numériques robustes et élégantes.</p>
+                <div class="mt-8">
+                    <a href="#contact" class="bg-[var(--accent-color)] text-white px-6 py-3 rounded-lg mr-4 hover:opacity-90 transition">Me contacter</a>
+                    <a href="#projets" class="border border-[var(--accent-color)] text-[var(--accent-color)] px-6 py-3 rounded-lg hover:bg-[var(--accent-color)] hover:text-white transition">Voir mes projets</a>
+                </div>
+                <div class="flex mt-8 space-x-4">
+                    <a href="#" class="text-[var(--text-secondary)] hover:text-[var(--accent-color)] transition">
+                        <i class="fab fa-linkedin-in text-2xl"></i>
+                    </a>
+                    <a href="#" class="text-[var(--text-secondary)] hover:text-[var(--accent-color)] transition">
+                        <i class="fab fa-github text-2xl"></i>
+                    </a>
+                    <a href="#" class="text-[var(--text-secondary)] hover:text-[var(--accent-color)] transition">
+                        <i class="fab fa-twitter text-2xl"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="md:w-1/2 flex justify-center">
+                <div class="w-64 h-64 md:w-80 md:h-80 bg-[var(--accent-color)] rounded-full overflow-hidden shadow-xl">
+                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=776&q=80" alt="Stevelle Makamto - Développeuse Full Stack" class="w-full h-full object-cover">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-[var(--bg-secondary)] text-[var(--text-primary)]">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-16">À propos de moi</h2>
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/3 mb-10 md:mb-0 flex justify-center">
+                    <div class="w-64 h-64 rounded-full overflow-hidden border-4 border-[var(--accent-color)]">
+                        <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=761&q=80" alt="Stevelle Makamto" class="w-full h-full object-cover">
+                    </div>
+                </div>
+                <div class="md:w-2/3 md:pl-12">
+                    <h3 class="text-2xl font-semibold mb-4">Qui suis-je?</h3>
+                    <p class="mb-4 text-[var(--text-secondary)]">Développeuse Fullstack passionnée, je souhaite mettre à profit mes compétences techniques en frontend et backend pour concevoir et développer des applications web performantes, ergonomiques et évolutives.</p>
+                    <p class="mb-4 text-[var(--text-secondary)]">Mon objectif est de rejoindre une équipe dynamique où je pourrai contribuer à l'ensemble du cycle de développement, de la conception d'interfaces utilisateur fluides à la mise en place d'API robustes et de bases de données optimisées. J’aime allier créativité, logique et performance pour offrir des solutions innovantes.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
+                        <div>
+                            <p><span class="font-semibold">Nom:</span> Stevelle Makamto</p>
+                            <p><span class="font-semibold">Email:</span> stevellemakamto20@gmail.com</p>
+                            <p><span class="font-semibold">Téléphone:</span> +237 6 70 02 51 91</p>
+                        </div>
+                        <div>
+                            <p><span class="font-semibold">Localisation:</span> Bandjoun, Ouest, Cameroun</p>
+                            <p><span class="font-semibold">Disponibilité:</span> Immédiate</p>
+                            <p><span class="font-semibold">Langues:</span> Français, Anglais</p>
+                        </div>
+                    </div>
+                    <div class="mt-8">
+                        <a href="#" class="bg-[var(--accent-color)] text-white px-6 py-3 rounded-lg inline-flex items-center">
+                            <i class="fas fa-download mr-2"></i> Télécharger mon CV
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="competences" class="py-20 bg-[var(--bg-primary)] text-[var(--text-primary)]">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-16">Mes compétences</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Frontend Skills -->
+                <div class="card p-6 rounded-lg bg-[var(--bg-secondary)] shadow-[var(--card-shadow)]">
+                    <h3 class="text-xl font-semibold mb-4 text-[var(--accent-color)]">Frontend</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span>HTML/CSS</span>
+                                <span>95%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                <div class="skill-bar bg-[var(--accent-color)] h-2.5 rounded-full" style="width: 95%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span>JavaScript/TypeScript</span>
+                                <span>90%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                <div class="skill-bar bg-[var(--accent-color)] h-2.5 rounded-full" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span>React/Next.js</span>
+                                <span>88%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                <div class="skill-bar bg-[var(--accent-color)] h-2.5 rounded-full" style="width: 88%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span>Vue.js</span>
+                                <span>85%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                <div class="skill-bar bg-[var(--accent-color)] h-2.5 rounded-full" style="width: 85%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Backend Skills -->
+                <div class="card p-6 rounded-lg bg-[var(--bg-secondary)] shadow-[var(--card-shadow)]">
+                    <h3 class="text-xl font-semibold mb-4 text-[var(--accent-color)]">Backend</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span>PHP/Laravel</span>
+                                <span>90%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                <div class="skill-bar bg-[var(--accent-color)] h-2.5 rounded-full" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span>Node.js</span>
+                                <span>85%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                <div class="skill-bar bg-[var(--accent-color)] h-2.5 rounded-full" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span>Python/Django</span>
+                                <span>80%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                <div class="skill-bar bg-[var(--accent-color)] h-2.5 rounded-full" style="width: 80%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span>API REST</span>
+                                <span>90%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                <div class="skill-bar bg-[var(--accent-color)] h-2.5 rounded-full" style="width: 90%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Database Skills -->
+                <div class="card p-6 rounded-lg bg-[var(--bg-secondary)] shadow-[var(--card-shadow)]">
+                    <h3 class="text-xl font-semibold mb-4 text-[var(--accent-color)]">Bases de données & Outils</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span>MySQL</span>
+                                <span>90%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                <div class="skill-bar bg-[var(--accent-color)] h-2.5 rounded-full" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span>Git/GitHub</span>
+                                <span>95%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                <div class="skill-bar bg-[var(--accent-color)] h-2.5 rounded-full" style="width: 95%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span>Docker</span>
+                                <span>80%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                <div class="skill-bar bg-[var(--accent-color)] h-2.5 rounded-full" style="width: 80%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span>WordPress</span>
+                                <span>75%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                <div class="skill-bar bg-[var(--accent-color)] h-2.5 rounded-full" style="width: 75%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mobile & Other Skills -->
+                <div class="card p-6 rounded-lg bg-[var(--bg-secondary)] shadow-[var(--card-shadow)]">
+                    <h3 class="text-xl font-semibold mb-4 text-[var(--accent-color)]">Mobile & Autres</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span>React Native</span>
+                                <span>85%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                <div class="skill-bar bg-[var(--accent-color)] h-2.5 rounded-full" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span>Flutter</span>
+                                <span>75%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                <div class="skill-bar bg-[var(--accent-color)] h-2.5 rounded-full" style="width: 75%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span>Photoshop</span>
+                                <span>70%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                <div class="skill-bar bg-[var(--accent-color)] h-2.5 rounded-full" style="width: 70%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span>UI/UX Design</span>
+                                <span>80%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                <div class="skill-bar bg-[var(--accent-color)] h-2.5 rounded-full" style="width: 80%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projets" class="py-20 bg-[var(--bg-secondary)] text-[var(--text-primary)]">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-16">Mes projets</h2>
+            
+            <!-- Projects Carousel -->
+            <div class="relative overflow-hidden rounded-lg shadow-xl mb-16">
+                <div class="carousel">
+                    <div class="carousel-item active">
+                        <div class="flex flex-col md:flex-row">
+                            <div class="md:w-1/2">
+                                <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1674&q=80" alt="Composcan" class="w-full h-64 md:h-full object-cover">
+                            </div>
+                            <div class="md:w-1/2 p-8 bg-[var(--bg-primary)]">
+                                <h3 class="text-2xl font-semibold mb-4">Composcan</h3>
+                                <p class="mb-4 text-[var(--text-secondary)]">Gestion des employés et des pointages dans une entreprise. Solution complète de gestion des ressources humaines avec suivi des présences et génération de rapports.</p>
+                                <div class="flex flex-wrap gap-2 mb-6">
+                                    <span class="bg-[var(--accent-color)] bg-opacity-20 text-[var(--accent-color)] px-3 py-1 rounded-full text-sm">React</span>
+                                    <span class="bg-[var(--accent-color)] bg-opacity-20 text-[var(--accent-color)] px-3 py-1 rounded-full text-sm">Node.js</span>
+                                    <span class="bg-[var(--accent-color)] bg-opacity-20 text-[var(--accent-color)] px-3 py-1 rounded-full text-sm">MySQL</span>
+                                    <span class="bg-[var(--accent-color)] bg-opacity-20 text-[var(--accent-color)] px-3 py-1 rounded-full text-sm">API REST</span>
+                                </div>
+                                <a href="https://composcan.vercel.app/" target="_blank" class="text-[var(--accent-color)] font-semibold hover:underline">Voir le projet →</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="flex flex-col md:flex-row">
+                            <div class="md:w-1/2">
+                                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="GestaFly" class="w-full h-64 md:h-full object-cover">
+                            </div>
+                            <div class="md:w-1/2 p-8 bg-[var(--bg-primary)]">
+                                <h3 class="text-2xl font-semibold mb-4">GestaFly</h3>
+                                <p class="mb-4 text-[var(--text-secondary)]">Application de gestion des flyers pour événements. Permet de créer, personnaliser et distribuer des flyers numériques pour divers événements.</p>
+                                <div class="flex flex-wrap gap-2 mb-6">
+                                    <span class="bg-[var(--accent-color)] bg-opacity-20 text-[var(--accent-color)] px-3 py-1 rounded-full text-sm">Vue.js</span>
+                                    <span class="bg-[var(--accent-color)] bg-opacity-20 text-[var(--accent-color)] px-3 py-1 rounded-full text-sm">Laravel</span>
+                                    <span class="bg-[var(--accent-color)] bg-opacity-20 text-[var(--accent-color)] px-3 py-1 rounded-full text-sm">MySQL</span>
+                                    <span class="bg-[var(--accent-color)] bg-opacity-20 text-[var(--accent-color)] px-3 py-1 rounded-full text-sm">Design</span>
+                                </div>
+                                <a href="https://www.gestafly.com/" target="_blank" class="text-[var(--accent-color)] font-semibold hover:underline">Voir le projet →</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="flex flex-col md:flex-row">
+                            <div class="md:w-1/2">
+                                <img src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="Edjangui" class="w-full h-64 md:h-full object-cover">
+                            </div>
+                            <div class="md:w-1/2 p-8 bg-[var(--bg-primary)]">
+                                <h3 class="text-2xl font-semibold mb-4">Edjangui</h3>
+                                <p class="mb-4 text-[var(--text-secondary)]">Plateforme de gestion de tontines et d'épargne collaborative. Application permettant de gérer les contributions et redistributions dans un système de tontine.</p>
+                                <div class="flex flex-wrap gap-2 mb-6">
+                                    <span class="bg-[var(--accent-color)] bg-opacity-20 text-[var(--accent-color)] px-3 py-1 rounded-full text-sm">React Native</span>
+                                    <span class="bg-[var(--accent-color)] bg-opacity-20 text-[var(--accent-color)] px-3 py-1 rounded-full text-sm">Firebase</span>
+                                    <span class="bg-[var(--accent-color)] bg-opacity-20 text-[var(--accent-color)] px-3 py-1 rounded-full text-sm">Node.js</span>
+                                    <span class="bg-[var(--accent-color)] bg-opacity-20 text-[var(--accent-color)] px-3 py-1 rounded-full text-sm">MongoDB</span>
+                                </div>
+                                <a href="https://edjangui.vercel.app" target="_blank" class="text-[var(--accent-color)] font-semibold hover:underline">Voir le projet →</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-control prev absolute left-0 top-1/2 transform -translate-y-1/2 bg-[var(--accent-color)] text-white p-2 rounded-r-lg">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="carousel-control next absolute right-0 top-1/2 transform -translate-y-1/2 bg-[var(--accent-color)] text-white p-2 rounded-l-lg">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+                <div class="absolute bottom-4 left-0 right-0 flex justify-center space-x-2">
+                    <button class="carousel-indicator w-3 h-3 rounded-full bg-gray-300" data-index="0"></button>
+                    <button class="carousel-indicator w-3 h-3 rounded-full bg-gray-300" data-index="1"></button>
+                    <button class="carousel-indicator w-3 h-3 rounded-full bg-gray-300" data-index="2"></button>
+                </div>
+            </div>
+
+            <!-- More Projects Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-16">
+                <div class="card rounded-lg overflow-hidden bg-[var(--bg-primary)] shadow-[var(--card-shadow)]">
+                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1115&q=80" alt="Projet Dashboard" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Dashboard Analytique</h3>
+                        <p class="text-[var(--text-secondary)] mb-4">Tableau de bord de visualisation de données avec graphiques interactifs et reporting personnalisable.</p>
+                        <a href="#" class="text-[var(--accent-color)] font-semibold hover:underline">En savoir plus</a>
+                    </div>
+                </div>
+                <div class="card rounded-lg overflow-hidden bg-[var(--bg-primary)] shadow-[var(--card-shadow)]">
+                    <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="Projet Blog" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Plateforme de Blog</h3>
+                        <p class="text-[var(--text-secondary)] mb-4">CMS moderne avec éditeur de texte enrichi, système de commentaires et gestion des utilisateurs.</p>
+                        <a href="#" class="text-[var(--accent-color)] font-semibold hover:underline">En savoir plus</a>
+                    </div>
+                </div>
+                <div class="card rounded-lg overflow-hidden bg-[var(--bg-primary)] shadow-[var(--card-shadow)]">
+                    <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="Projet API" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">API RESTful</h3>
+                        <p class="text-[var(--text-secondary)] mb-4">API sécurisée et documentée avec authentification JWT, rate limiting et tests complets.</p>
+                        <a href="#" class="text-[var(--accent-color)] font-semibold hover:underline">En savoir plus</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="py-20 bg-[var(--bg-primary)] text-[var(--text-primary)]">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-16">Mon expérience</h2>
+            <div class="relative">
+                <!-- Timeline -->
+                <div class="border-l-2 border-[var(--accent-color)] ml-4 pb-10">
+                    <!-- Experience 1 -->
+                    <div class="mb-10 ml-6">
+                        <div class="absolute w-4 h-4 bg-[var(--accent-color)] rounded-full -left-2 border-2 border-white"></div>
+                        <h3 class="text-xl font-semibold">Développeuse Full Stack Web</h3>
+                        <p class="text-[var(--accent-color)] font-semibold">Envol Learn & Travel | Juillet 2022 - Juin 2025</p>
+                        <p class="mt-2 text-[var(--text-secondary)]">Conception et développement de solutions informatiques globales, impliquant à la fois le backend et le frontend pour répondre aux besoins des clients. Chef d'équipe dans des projets de développement. Encadrement des stagiaires en développement.</p>
+                        <ul class="mt-2 list-disc list-inside text-[var(--text-secondary)]">
+                            <li>Développement d'applications web complètes</li>
+                            <li>Gestion d'équipe et encadrement de stagiaires</li>
+                            <li>Conception d'architecture logicielle</li>
+                        </ul>
+                    </div>
+                    <!-- Experience 2 -->
+                    <div class="mb-10 ml-6">
+                        <div class="absolute w-4 h-4 bg-[var(--accent-color)] rounded-full -left-2 border-2 border-white"></div>
+                        <h3 class="text-xl font-semibold">Développeuse Frontend</h3>
+                        <p class="text-[var(--accent-color)] font-semibold">GESTA | Mars 2023 - Juillet 2025</p>
+                        <p class="mt-2 text-[var(--text-secondary)]">Conception et développement d'applications Web pour les clients. Responsable du front-end: React js, Next Js, TypeScript, Bootstrap, Material UI.</p>
+                        <ul class="mt-2 list-disc list-inside text-[var(--text-secondary)]">
+                            <li>Développement d'interfaces utilisateur réactives</li>
+                            <li>Intégration avec les APIs backend</li>
+                            <li>Optimisation des performances frontend</li>
+                        </ul>
+                    </div>
+                    <!-- Experience 3 -->
+                    <div class="mb-10 ml-6">
+                        <div class="absolute w-4 h-4 bg-[var(--accent-color)] rounded-full -left-2 border-2 border-white"></div>
+                        <h3 class="text-xl font-semibold">Développeuse Backend</h3>
+                        <p class="text-[var(--accent-color)] font-semibold">CMC | Novembre 2022 - Août 2025</p>
+                        <p class="mt-2 text-[var(--text-secondary)]">Conception et développement de solutions informatiques globales, en utilisant php, Laravel et API Rest pour le backend afin répondre aux besoins des clients.</p>
+                        <ul class="mt-2 list-disc list-inside text-[var(--text-secondary)]">
+                            <li>Développement d'API REST avec Laravel</li>
+                            <li>Conception et optimisation de bases de données</li>
+                            <li>Mise en place de solutions de sécurité</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Education -->
+            <h2 class="text-3xl font-bold text-center my-16">Formation</h2>
+            <div class="relative">
+                <div class="border-l-2 border-[var(--accent-color)] ml-4 pb-10">
+                    <div class="mb-10 ml-6">
+                        <div class="absolute w-4 h-4 bg-[var(--accent-color)] rounded-full -left-2 border-2 border-white"></div>
+                        <h3 class="text-xl font-semibold">Master 2 en Intelligence Artificielle</h3>
+                        <p class="text-[var(--accent-color)] font-semibold">Université de Dschang | 2023 - 2024</p>
+                        <p class="mt-2 text-[var(--text-secondary)]">Master 2 Recherche en Intelligence Artificielle</p>
+                    </div>
+                    <div class="mb-10 ml-6">
+                        <div class="absolute w-4 h-4 bg-[var(--accent-color)] rounded-full -left-2 border-2 border-white"></div>
+                        <h3 class="text-xl font-semibold">Master 1 en Intelligence Artificielle</h3>
+                        <p class="text-[var(--accent-color)] font-semibold">Université de Dschang | 2022 - 2023</p>
+                        <p class="mt-2 text-[var(--text-secondary)]">Master 1 Recherche en Intelligence Artificielle</p>
+                    </div>
+                    <div class="mb-10 ml-6">
+                        <div class="absolute w-4 h-4 bg-[var(--accent-color)] rounded-full -left-2 border-2 border-white"></div>
+                        <h3 class="text-xl font-semibold">Licence Technologique en CDRI</h3>
+                        <p class="text-[var(--accent-color)] font-semibold">IUT FOTSO VICTOR | 2021 - 2022</p>
+                        <p class="mt-2 text-[var(--text-secondary)]">Concepteur Développeur Réseau et Internet</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-[var(--bg-secondary)] text-[var(--text-primary)]">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-16">Contactez-moi</h2>
+            <div class="flex flex-col md:flex-row">
+                <div class="md:w-1/2 mb-10 md:mb-0 md:pr-8">
+                    <h3 class="text-xl font-semibold mb-6">Discutons de votre projet</h3>
+                    <p class="mb-6 text-[var(--text-secondary)]">N'hésitez pas à me contacter pour discuter de vos idées de projet ou pour toute question. Je suis toujours ouverte à de nouvelles opportunités.</p>
+                    <div class="space-y-4">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-[var(--accent-color)] bg-opacity-20 flex items-center justify-center mr-4">
+                                <i class="fas fa-map-marker-alt text-[var(--accent-color)]"></i>
+                            </div>
+                            <div>
+                                <p class="font-semibold">Adresse</p>
+                                <p class="text-[var(--text-secondary)]">Bandjoun, Ouest, Cameroun</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-[var(--accent-color)] bg-opacity-20 flex items-center justify-center mr-4">
+                                <i class="fas fa-envelope text-[var(--accent-color)]"></i>
+                            </div>
+                            <div>
+                                <p class="font-semibold">Email</p>
+                                <p class="text-[var(--text-secondary)]">stevellemakamto20@gmail.com</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-[var(--accent-color)] bg-opacity-20 flex items-center justify-center mr-4">
+                                <i class="fas fa-phone text-[var(--accent-color)]"></i>
+                            </div>
+                            <div>
+                                <p class="font-semibold">Téléphone</p>
+                                <p class="text-[var(--text-secondary)]">+237 6 70 02 51 91</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-8 flex space-x-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-[var(--accent-color)] text-white flex items-center justify-center">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-[var(--accent-color)] text-white flex items-center justify-center">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-[var(--accent-color)] text-white flex items-center justify-center">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="md:w-1/2">
+                    <form class="bg-[var(--bg-primary)] p-8 rounded-lg shadow-[var(--card-shadow)]">
+                        <div class="mb-4">
+                            <label for="name" class="block mb-2">Nom complet</label>
+                            <input type="text" id="name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--accent-color)]">
+                        </div>
+                        <div class="mb-4">
+                            <label for="email" class="block mb-2">Email</label>
+                            <input type="email" id="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--accent-color)]">
+                        </div>
+                        <div class="mb-4">
+                            <label for="subject" class="block mb-2">Sujet</label>
+                            <input type="text" id="subject" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--accent-color)]">
+                        </div>
+                        <div class="mb-4">
+                            <label for="message" class="block mb-2">Message</label>
+                            <textarea id="message" rows="5" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--accent-color)]"></textarea>
+                        </div>
+                        <button type="submit" class="bg-[var(--accent-color)] text-white px-6 py-3 rounded-lg hover:opacity-90 transition">Envoyer le message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[var(--bg-primary)] text-[var(--text-primary)] py-8 border-t border-gray-200">
+        <div class="container mx-auto px-6 text-center">
+            <p>© 2023 Stevelle Makamto. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script>
+        $(document).ready(function() {
+            // Theme switching functionality
+            const themes = {
+                light: {
+                    'bg-primary': '#f8fafc',
+                    'bg-secondary': '#ffffff',
+                    'text-primary': '#1a202c',
+                    'text-secondary': '#4a5568',
+                    'accent-color': '#059669',
+                    'card-shadow': '0 4px 6px rgba(0, 0, 0, 0.1)'
+                },
+                dark: {
+                    'bg-primary': '#1a202c',
+                    'bg-secondary': '#2d3748',
+                    'text-primary': '#f7fafc',
+                    'text-secondary': '#e2e8f0',
+                    'accent-color': '#34d399',
+                    'card-shadow': '0 4px 6px rgba(0, 0, 0, 0.3)'
+                },
+                green: {
+                    'bg-primary': '#f0fff4',
+                    'bg-secondary': '#c6f6d5',
+                    'text-primary': '#22543d',
+                    'text-secondary': '#2f855a',
+                    'accent-color': '#2f855a',
+                    'card-shadow': '0 4px 6px rgba(0, 0, 0, 0.1)'
+                }
+            };
+
+            // Set theme based on saved preference or default
+            let currentTheme = localStorage.getItem('theme') || 'light';
+            setTheme(currentTheme);
+
+            $('#theme-toggle').click(function() {
+                $('#theme-options').toggle();
+            });
+
+            $('[data-theme]').click(function() {
+                const theme = $(this).data('theme');
+                setTheme(theme);
+                $('#theme-options').hide();
+            });
+
+            function setTheme(theme) {
+                currentTheme = theme;
+                localStorage.setItem('theme', theme);
+                
+                // Update theme class on body
+                $('body').removeClass('theme-light theme-dark theme-green').addClass(`theme-${theme}`);
+                
+                // Update theme icon
+                const icon = theme === 'dark' ? 'fa-sun' : 'fa-moon';
+                $('#theme-toggle i').removeClass('fa-moon fa-sun').addClass(icon);
+            }
+
+            // Mobile menu functionality
+            $('#mobile-menu-button').click(function() {
+                $('#mobile-menu').slideToggle();
+            });
+
+            // Carousel functionality
+            let currentSlide = 0;
+            const slides = $('.carousel-item');
+            const totalSlides = slides.length;
+
+            $('.carousel-control.next').click(function() {
+                navigateSlide(1);
+            });
+
+            $('.carousel-control.prev').click(function() {
+                navigateSlide(-1);
+            });
+
+            $('.carousel-indicator').click(function() {
+                const index = $(this).data('index');
+                goToSlide(index);
+            });
+
+            function navigateSlide(direction) {
+                currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
+                updateCarousel();
+            }
+
+            function goToSlide(index) {
+                currentSlide = index;
+                updateCarousel();
+            }
+
+            function updateCarousel() {
+                slides.removeClass('active');
+                $(slides[currentSlide]).addClass('active');
+                
+                $('.carousel-indicator').removeClass('bg-[var(--accent-color)]').addClass('bg-gray-300');
+                $(`.carousel-indicator[data-index="${currentSlide}"]`).removeClass('bg-gray-300').addClass('bg-[var(--accent-color)]');
+            }
+
+            // Initialize carousel indicators
+            $(`.carousel-indicator[data-index="0"]`).addClass('bg-[var(--accent-color)]');
+
+            // Animate skill bars when in viewport
+            $(window).scroll(function() {
+                $('.skill-bar').each(function() {
+                    const position = $(this).offset().top;
+                    const scrollPosition = $(window).scrollTop() + $(window).height();
+                    if (position < scrollPosition) {
+                        $(this).css('width', $(this).attr('style').split(';')[0].split(':')[1]);
+                    }
+                });
+            });
+
+            // Smooth scrolling for navigation links
+            $('a[href^="#"]').on('click', function(e) {
+                e.preventDefault();
+                const target = this.hash;
+                const $target = $(target);
+                $('html, body').animate({
+                    'scrollTop': $target.offset().top - 80
+                }, 800, 'swing');
+                
+                // Close mobile menu if open
+                $('#mobile-menu').slideUp();
+            });
+        });
+    </script>
+</body>
+</html>
