@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guide de Résolution des Erreurs Vercel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9fafb;
+        }
+        .container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        h1, h2, h3 {
+            color: #2d3748;
+        }
+        h1 {
+            border-bottom: 3px solid #38a169;
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+        h2 {
+            color: #38a169;
+            margin-top: 30px;
+        }
+        code {
+            background-color: #edf2f7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+        }
+        pre {
+            background-color: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+        .step {
+            background-color: #ebf8ff;
+            border-left: 4px solid #4299e1;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 4px 4px 0;
+        }
+        .error {
+            background-color: #fed7d7;
+            border-left: 4px solid #f56565;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 4px 4px 0;
+        }
+        .success {
+            background-color: #c6f6d5;
+            border-left: 4px solid #38a169;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 4px 4px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #e2e8f0;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #38a169;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f7fafc;
+        }
+        .tab {
+            overflow: hidden;
+            border: 1px solid #ccc;
+            background-color: #f1f1f1;
+            border-radius: 5px 5px 0 0;
+        }
+        .tab button {
+            background-color: inherit;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            transition: 0.3s;
+        }
+        .tab button:hover {
+            background-color: #ddd;
+        }
+        .tab button.active {
+            background-color: #38a169;
+            color: white;
+        }
+        .tabcontent {
+            display: none;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-top: none;
+            border-radius: 0 0 5px 5px;
+            animation: fadeEffect 1s;
+        }
+        @keyframes fadeEffect {
+            from {opacity: 0;}
+            to {opacity: 1;}
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Guide de Résolution des Erreurs de Déploiement sur Vercel</h1>
+        
+        <div class="tab">
+            <button class="tablinks active" onclick="openTab(event, 'common')">Erreurs Courantes</button>
+            <button class="tablinks" onclick="openTab(event, 'build')">Erreurs de Build</button>
+            <button class="tablinks" onclick="openTab(event, 'env')">Variables d'Environnement</button>
+            <button class="tablinks" onclick="openTab(event, 'routing')">Problèmes de Routing</button>
+        </div>
+
+        <div id="common" class="tabcontent" style="display:block;">
+            <h2>Erreurs Courantes sur Vercel</h2>
+            
+            <div class="error">
+                <h3>❌ ERROR: Module not found</h3>
+                <p>Cette erreur se produit lorsque Vercel ne peut pas trouver un module requis par votre application.</p>
+            </div>
+            
+            <div class="step">
+                <h4>Solution :</h4>
+                <ol>
+                    <li>Vérifiez que toutes vos dépendances sont listées dans <code>package.json</code></li>
+                    <li>Exécutez <code>npm install</code> ou <code>yarn install</code> localement pour vérifier les dépendances manquantes</li>
+                    <li>Supprimez <code>node_modules</code> et <code>package-lock.json</code> puis réinstallez les dépendances</li>
+                    <li>Assurez-vous que votre projet utilise une version de Node.js compatible avec vos dépendances</li>
+                </ol>
+            </div>
+            
+            <div class="error">
+                <h3>❌ ERROR: Failed to compile</h3>
+                <p>Erreur de compilation souvent due à des erreurs de syntaxe ou de configuration.</p>
+            </div>
+            
+            <div class="step">
+                <h4>Solution :</h4>
+                <ol>
+                    <li>Vérifiez les erreurs dans la console de développement de Vercel</li>
+                    <li>Testez votre build localement avec <code>npm run build</code></li>
+                    <li>Corrigez toutes les erreurs qui apparaissent lors du build local</li>
+                </ol>
+            </div>
+        </div>
+
+        <div id="build" class="tabcontent">
+            <h2>Erreurs de Build</h2>
+            
+            <div class="error">
+                <h3>❌ ERROR: Build script returned non-zero exit code</h3>
+                <p>Le script de build a échoué avec un code d'erreur.</p>
+            </div>
+            
+            <div class="step">
+                <h4>Solution :</h4>
+                <ol>
+                    <li>Vérifiez votre script de build dans <code>package.json</code></li>
+                    <li>Testez le script de build localement</li>
+                    <li>Examinez les logs de build pour plus de détails</li>
+                </ol>
+            </div>
+            
+            <div class="error">
+                <h3>❌ ERROR: ENOENT: no such file or directory</h3>
+                <p>Un fichier ou répertoire requis est introuvable.</p>
+            </div>
+            
+            <div class="step">
+                <h4>Solution :</h4>
+                <ol>
+                    <li>Vérifiez les chemins de fichiers dans votre code</li>
+                    <li>Assurez-vous que tous les fichiers nécessaires sont inclus dans votre déploiement</li>
+                    <li>Vérifiez la casse des noms de fichiers (sensible sur certaines plateformes)</li>
+                </ol>
+            </div>
+            
+            <h3>Configuration de Build recommandée</h3>
+            <p>Créez un fichier <code>vercel.json</code> à la racine de votre projet :</p>
+            <pre>{
+  "version": 2,
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ]
+}</pre>
+        </div>
+
+        <div id="env" class="tabcontent">
+            <h2>Problèmes de Variables d'Environnement</h2>
+            
+            <div class="error">
+                <h3>❌ ERROR: Environment variable not found</h3>
+                <p>Une variable d'environnement requise n'est pas définie.</p>
+            </div>
+            
+            <div class="step">
+                <h4>Solution :</h4>
+                <ol>
+                    <li>Connectez-vous à votre tableau de bord Vercel</li>
+                    <li>Allez dans les paramètres de votre projet</li>
+                    <li>Onglet "Environment Variables"</li>
+                    <li>Ajoutez toutes les variables nécessaires</li>
+                    <li>Redéployez votre application</li>
+                </ol>
+            </div>
+            
+            <h3>Variables d'environnement courantes</h3>
+            <table>
+                <tr>
+                    <th>Variable</th>
+                    <th>Description</th>
+                    <th>Exemple</th>
+                </tr>
+                <tr>
+                    <td>NODE_ENV</td>
+                    <td>Environnement d'exécution</td>
+                    <td>production</td>
+                </tr>
+                <tr>
+                    <td>DATABASE_URL</td>
+                    <td>URL de connexion à la base de données</td>
+                    <td>postgresql://user:pass@host:port/db</td>
+                </tr>
+                <tr>
+                    <td>API_KEY</td>
+                    <td>Clé d'API pour services externes</td>
+                    <td>ak_1234567890abcdef</td>
+                </tr>
+            </table>
+            
+            <div class="success">
+                <h4>💡 Astuce :</h4>
+                <p>Utilisez un fichier <code>.env.local</code> pour le développement local et configurez les mêmes variables dans Vercel pour la production.</p>
+            </div>
+        </div>
+
+        <div id="routing" class="tabcontent">
+            <h2>Problèmes de Routing</h2>
+            
+            <div class="error">
+                <h3>❌ ERROR: 404 Page Not Found</h3>
+                <p>La page demandée n'existe pas ou le routage est mal configuré.</p>
+            </div>
+            
+            <div class="step">
+                <h4>Solution pour les applications SPA (Single Page Application) :</h4>
+                <ol>
+                    <li>Créez un fichier <code>vercel.json</code> à la racine de votre projet</li>
+                    <li>Ajoutez la configuration de réécriture suivante :</li>
+                </ol>
+                <pre>{
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}</pre>
+            </div>
+            
+            <div class="error">
+                <h3>❌ ERROR: Failed to load resource</h3>
+                <p>Les ressources statiques (CSS, JS, images) ne sont pas chargées correctement.</p>
+            </div>
+            
+            <div class="step">
+                <h4>Solution :</h4>
+                <ol>
+                    <li>Vérifiez les chemins des ressources dans votre code HTML</li>
+                    <li>Utilisez des chemins absolus plutôt que relatifs</li>
+                    <li>Assurez-vous que les fichiers sont dans le répertoire public</li>
+                </ol>
+            </div>
+        </div>
+
+        <h2>Checklist de Déploiement Vercel</h2>
+        <ol>
+            <li><input type="checkbox"> Tester le build localement avec <code>npm run build</code></li>
+            <li><input type="checkbox"> Vérifier que toutes les dépendances sont dans <code>package.json</code></li>
+            <li><input type="checkbox"> Configurer les variables d'environnement dans le tableau de bord Vercel</li>
+            <li><input type="checkbox"> Vérifier la configuration de routage pour les SPA</li>
+            <li><input type="checkbox"> Examiner les logs de déploiement en cas d'échec</li>
+        </ol>
+
+        <div class="success">
+            <h3>✅ Déploiement Réussi</h3>
+            <p>Une fois ces étapes suivies, votre application devrait se déployer correctement sur Vercel. Si vous rencontrez toujours des problèmes, consultez la <a href="https://vercel.com/docs" target="_blank">documentation officielle de Vercel</a>.</p>
+        </div>
+    </div>
+
+    <script>
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+    </script>
+</body>
+</html>
